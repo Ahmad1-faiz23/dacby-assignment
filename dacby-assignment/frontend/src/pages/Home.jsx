@@ -29,7 +29,7 @@ function Home() {
       setLoading(true);
 
       const res = await axios.get(
-        "http://localhost:5000/api/stories"
+        "https://dacby-assignment-3127.onrender.com/api/stories"
       );
 
       setStories(res.data);
@@ -52,7 +52,7 @@ function Home() {
         localStorage.getItem("token");
 
       const res = await axios.post(
-        `http://localhost:5000/api/stories/${id}/bookmark`,
+        `https://dacby-assignment-3127.onrender.com/api/stories/${id}/bookmark`,
         {},
         {
           headers: {
