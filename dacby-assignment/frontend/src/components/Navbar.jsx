@@ -74,7 +74,7 @@ function Navbar() {
     <nav className="navbar">
 
       <h1 className="logo">
-        🔥 HackerNews
+        📝 Blog Website
       </h1>
 
       <div className="nav-links">

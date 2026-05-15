@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 
 function Login() {
+
   const navigate = useNavigate();
 
   const [formData, setFormData] =
@@ -13,19 +14,23 @@ function Login() {
     });
 
   const handleChange = (e) => {
+
     setFormData({
       ...formData,
       [e.target.name]:
         e.target.value,
     });
+
   };
 
   const handleSubmit = async (e) => {
+
     e.preventDefault();
 
     try {
+
       const res = await axios.post(
-        "http://localhost:5000/api/auth/login",
+        "https://dacby-assignment-3127.onrender.com/api/auth/login",
         formData
       );
 
@@ -34,10 +39,19 @@ function Login() {
         res.data.token
       );
 
+      localStorage.setItem(
+        "user",
+        JSON.stringify(res.data.user)
+      );
+
       alert("Login Success");
 
       navigate("/");
+
     } catch (error) {
+
+      console.log(error);
+
       alert("Login Failed");
     }
   };
@@ -47,9 +61,11 @@ function Login() {
       <Navbar />
 
       <div className="form-container">
+
         <h1>Login</h1>
 
         <form onSubmit={handleSubmit}>
+
           <input
             type="email"
             name="email"
@@ -67,7 +83,9 @@ function Login() {
           <button type="submit">
             Login
           </button>
+
         </form>
+
       </div>
     </>
   );

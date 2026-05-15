@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Navbar from "../components/Navbar";
-
 import { toast } from "react-toastify";
 
 function Home() {
@@ -19,7 +18,9 @@ function Home() {
     useState(5);
 
   useEffect(() => {
+
     fetchStories();
+
   }, []);
 
   const fetchStories = async () => {
@@ -32,6 +33,8 @@ function Home() {
         "http://localhost:5000/api/stories"
       );
 
+      console.log(res.data);
+
       setStories(res.data);
 
     } catch (error) {
@@ -41,6 +44,7 @@ function Home() {
     } finally {
 
       setLoading(false);
+
     }
   };
 
@@ -69,6 +73,8 @@ function Home() {
       fetchStories();
 
     } catch (error) {
+
+      console.log(error);
 
       toast.error(
         "Login First"
@@ -103,14 +109,14 @@ function Home() {
       <div className="container">
 
         <h1 className="title">
-          🔥 Hacker News Stories
+          📝 Blog Website
         </h1>
 
         <div className="search-box">
 
           <input
             type="text"
-            placeholder="Search stories..."
+            placeholder="Search blogs..."
             value={search}
             onChange={(e) =>
               setSearch(
@@ -124,7 +130,7 @@ function Home() {
         {loading ? (
 
           <>
-            {[1,2,3].map((item) => (
+            {[1, 2, 3].map((item) => (
 
               <div
                 className="skeleton-card"
@@ -148,7 +154,7 @@ function Home() {
           filteredStories.length === 0 ? (
 
             <h2 className="empty-message">
-              No stories found 😢
+              No blogs found 😢
             </h2>
 
           ) : (
@@ -192,7 +198,7 @@ function Home() {
                       target="_blank"
                       rel="noreferrer"
                     >
-                      Read Story
+                      Read Blog
                     </a>
 
                     <br />
@@ -239,9 +245,7 @@ function Home() {
               )}
 
             </>
-
           )
-
         )}
 
       </div>

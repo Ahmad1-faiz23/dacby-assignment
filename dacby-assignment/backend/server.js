@@ -29,29 +29,6 @@ app.use(cors({
 app.use(express.json());
 
 
-// ✅ MongoDB
-
-mongoose
-  .connect(process.env.MONGO_URI)
-
-  .then(() =>
-    console.log("MongoDB Connected")
-  )
-
-  .catch((err) =>
-    console.log(err)
-  );
-
-
-// ✅ Default Route
-
-app.get("/", (req, res) => {
-
-  res.send("API Running");
-
-});
-
-
 // ✅ Routes
 
 app.use(
@@ -65,17 +42,42 @@ app.use(
 );
 
 
-// ✅ Server
+// ✅ Default Route
+
+app.get("/", (req, res) => {
+
+  res.send("API Running");
+
+});
+
+
+// ✅ MongoDB + Server
 
 const PORT =
   process.env.PORT || 5000;
 
-app.listen(PORT, async () => {
+mongoose
+  .connect(process.env.MONGO_URI)
 
-  console.log(
-    `Server running on ${PORT}`
-  );
+  .then(async () => {
 
-  await scrapeStories();
+    console.log("MongoDB Connected");
 
-});
+    // scraper run after DB connect
+    await scrapeStories();
+
+    app.listen(PORT, () => {
+
+      console.log(
+        `Server running on ${PORT}`
+      );
+
+    });
+
+  })
+
+  .catch((err) => {
+
+    console.log(err);
+
+  });
